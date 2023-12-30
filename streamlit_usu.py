@@ -63,7 +63,7 @@ with st.sidebar:
     
     race_chosen = st.selectbox('Select a race', updated_races)
     
-tab1, tab2 = st.tabs(['Prediction performance', 'Background Information'])
+tab1, tab2 = st.tabs(['Prediction performance', 'Background information'])
 
 # dash_1 = st.container(border=True)
 # dash_2 = st.container(border=True)
@@ -302,7 +302,7 @@ with tab2:
     
     info = '''
     - The original dataset contained 1,429,253 race results with
-    dates ranging from 08-24-2018 to 08-5-2023.
+    dates ranging from 08-24-2018 to 08-05-2023.
     - After removing probable non-running races, 
     there were 1,191,678 results in the filtered dataset.
     - In order to engineer features to be used for predictions, 
