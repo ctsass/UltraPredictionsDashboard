@@ -10,12 +10,17 @@ import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
 
-data = pd.read_csv("test_data.csv")
-races = data['race_name'].sort_values().unique()
-
 st.set_page_config(
     page_title="Finish Time Predictions", 
     )
+
+@st.cache_data
+def load_data(path):
+    return pd.read_csv(path)
+
+data = load_data('test_data.csv')
+
+races = data['race_name'].sort_values().unique()
 
 st.title("Test Set Finish Time Predictions")
 
@@ -64,13 +69,6 @@ with st.sidebar:
     race_chosen = st.selectbox('Select a race', updated_races)
     
 tab1, tab2 = st.tabs(['Prediction performance', 'Background information'])
-
-# dash_1 = st.container(border=True)
-# dash_2 = st.container(border=True)
-# dash_3 = st.container(border=True)
-# dash_4 = st.container(border=True)
-# dash_5 = st.container(border=True)
-# dash_6 = st.container(border=True)
 
 df = data[data.race_name == race_chosen]
 
@@ -164,15 +162,6 @@ with tab1:
             - All error measurements are in minutes
             '''
             st.markdown(notes)
-            
-        
-        # st.subheader('Notes')
-        
-        # notes = '''
-        # - AE is Absolute Error 
-        # - All error measurements are in minutes
-        # '''
-        # st.markdown(notes)
         
     with dash_4:
         
