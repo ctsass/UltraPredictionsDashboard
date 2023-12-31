@@ -335,7 +335,7 @@ with tab2:
     - So a large portion of the filtered dataset could only be used to
     engineer features for examples occurring later (by date) in the filtered
     dataset.
-    - The final dataset contained 459,433 examples with features for
+    - The final engineered dataset contained 459,433 examples with features for
     predictions.
     - This dataset was split by date into training and test sets in order to
     train and evaluate an XGBoost algorithm for predicting finish times.
