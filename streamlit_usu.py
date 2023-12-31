@@ -67,26 +67,56 @@ with st.sidebar:
             )
     
     race_chosen = st.selectbox('Select a race', updated_races)
+
+@st.cache_data
+def params(race_chosen):
+
+    df = data[data.race_name == race_chosen]
+
+    mean_err = df[
+        ['USU_abs_err', 
+        'MED_abs_err', 
+        'XGB_abs_err']
+        ].mean().map("{:,.2f}".format)
+
+    med_err = df[
+        ['USU_abs_err', 
+        'MED_abs_err', 
+        'XGB_abs_err']
+        ].median().map("{:,.2f}".format)
+
+    in_tar = df[['USU_in_target', 'MED_in_target', 'XGB_in_target']].mean()
+    in_tar *= 100
+    in_tar = in_tar.map("{:,.1f}%".format)
+
+    n = len(df)
+
+    _, bins = np.histogram(
+        np.hstack(
+            (
+                df.time, 
+                df.USU_pred, 
+                df.XGB_pred, 
+                df.MED_pred
+                )
+            ), 
+        bins=max(1, min(n//5, 20))
+        )
     
+    y_max = 0
+    
+    for s in ['time', 'USU_pred', 'XGB_pred', 'MED_pred']:
+        count, _ = np.histogram(df[s], bins=bins)
+        tmp = max(count)
+        y_max = max(tmp, y_max)
+            
+    y_max += 1
+
+    return df, mean_err, med_err, in_tar, bins[0], bins[-1], bins[1]-bins[0], y_max
+
+df, mean_err, med_err, in_tar, x_min, x_max, delta_x, y_max = params(race_chosen)
+
 tab1, tab2 = st.tabs(['Prediction performance', 'Background information'])
-
-df = data[data.race_name == race_chosen]
-
-mean_err = df[
-    ['USU_abs_err', 
-     'MED_abs_err', 
-     'XGB_abs_err']
-    ].mean().map("{:,.2f}".format)
-
-med_err = df[
-    ['USU_abs_err', 
-     'MED_abs_err', 
-     'XGB_abs_err']
-    ].median().map("{:,.2f}".format)
-
-in_tar = df[['USU_in_target', 'MED_in_target', 'XGB_in_target']].mean()
-in_tar *= 100
-in_tar = in_tar.map("{:,.1f}%".format)
 
 with tab1:
     
@@ -222,32 +252,6 @@ with tab1:
         col = col_chosen
         col_chosen += '_pred'
         
-        df = data[data.race_name == race_chosen]
-        n = len(df)
-        
-        _, bins = np.histogram(
-            np.hstack(
-                (
-                    df.time, 
-                    df.USU_pred, 
-                    df.XGB_pred, 
-                    df.MED_pred
-                    )
-                ), 
-            bins=max(1, min(n//5, 20))
-            )
-    
-        y_max = 0
-    
-        for s in ['time', 'USU_pred', 'XGB_pred', 'MED_pred']:
-            count, _ = np.histogram(df[s], bins=bins)
-            tmp = max(count)
-            y_max = max(tmp, y_max)
-            
-        y_max += 1
-    
-        time_count, index = np.histogram(df['time'], bins=bins)
-        
         color = {'USU_pred':'tan', 'MED_pred':'salmon', 'XGB_pred':'cadetblue'}
         
         fig = go.Figure()
@@ -256,9 +260,9 @@ with tab1:
             go.Histogram(
                 x=df[col_chosen],
                 xbins=dict(
-                    start=bins[0], 
-                    end=bins[-1], 
-                    size=bins[1]-bins[0]+0.00001
+                    start=x_min, 
+                    end=x_max, 
+                    size=delta_x + 0.00001
                     ), 
                 autobinx=False,
                 name=col,
@@ -283,7 +287,7 @@ with tab1:
             xaxis_title=dict(text='Minutes')
             )
         fig.update_yaxes(range = [0, y_max])
-        fig.update_xaxes(range = [bins[0]-1, bins[-1]+1])
+        fig.update_xaxes(range = [x_min-1, x_max+1])
         
         st.plotly_chart(fig, use_container_width=True, theme=None)
     
