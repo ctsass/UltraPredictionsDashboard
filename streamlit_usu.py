@@ -137,7 +137,7 @@ with tab1:
             disp_1 = ' '.join(race_chosen.split()[:-5])
             disp_2 = race_chosen.split()[-5][1:]
             disp_3 = race_chosen.split()[-1]
-            st.header(f'{disp_1}', divider='blue')
+            st.header(f'{disp_1}', divider='gray')
             st.subheader(f'{disp_2} miles, N = {disp_3} participants')
             
     with dash_2:
