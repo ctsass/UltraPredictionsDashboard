@@ -69,6 +69,9 @@ def params(race_chosen):
     winning_times = df[['ppt_gender', 'time']].copy()
     winning_times = winning_times.groupby('ppt_gender')['time'].min().map("{:,.1f}".format)
 
+    med_times = df[['ppt_gender', 'time']].copy()
+    med_times = med_times.groupby('ppt_gender')['time'].median().map("{:,.1f}".format)
+
     SD = df[['ppt_gender', 'time']].copy()
     SD = SD.groupby('ppt_gender')['time'].std(ddof=0).map("{:,.1f}".format)
     
@@ -114,9 +117,9 @@ def params(race_chosen):
             
     y_max += 1
 
-    return df, winning_times, SD, ppt_count, mean_err, med_err, in_tar, bins[0], bins[-1], bins[1]-bins[0], y_max
+    return df, winning_times, med_times, SD, ppt_count, mean_err, med_err, in_tar, bins[0], bins[-1], bins[1]-bins[0], y_max
 
-df, winning_times, SD, ppt_count, mean_err, med_err, in_tar, x_min, x_max, delta_x, y_max = params(race_chosen)
+df, winning_times, med_times, SD, ppt_count, mean_err, med_err, in_tar, x_min, x_max, delta_x, y_max = params(race_chosen)
 
 tab1, tab2 = st.tabs(['Prediction performance', 'Background information'])
 
@@ -158,6 +161,10 @@ with tab1:
                 st.metric(
                     label=f'{winning_times.index[i]} win time',
                     value = winning_times[i]
+                    )
+                st.metric(
+                    label=f'{med_times.index[i]} median time',
+                    value = med_times[i]
                     )
                 st.metric(
                     label=f'{SD.index[i]} std dev',
