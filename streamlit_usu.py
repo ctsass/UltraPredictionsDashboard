@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Dec 29 09:12:58 2023
-
-@author: ctsass
-"""
-
 import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
@@ -72,6 +65,15 @@ with st.sidebar:
 def params(race_chosen):
 
     df = data[data.race_name == race_chosen]
+    
+    winning_times = df[['ppt_gender', 'time']].copy()
+    winning_times = winning_times.groupby('ppt_gender')['time'].min().map("{:,.1f}".format)
+
+    SD = df[['ppt_gender', 'time']].copy()
+    SD = SD.groupby('ppt_gender')['time'].std(ddof=0).map("{:,.1f}".format)
+    
+    ppt_count = df[['ppt_gender', 'time']].copy()
+    ppt_count = ppt_count.groupby('ppt_gender')['time'].count()
 
     mean_err = df[
         ['USU_abs_err', 
@@ -112,9 +114,9 @@ def params(race_chosen):
             
     y_max += 1
 
-    return df, mean_err, med_err, in_tar, bins[0], bins[-1], bins[1]-bins[0], y_max
+    return df, winning_times, SD, ppt_count, mean_err, med_err, in_tar, bins[0], bins[-1], bins[1]-bins[0], y_max
 
-df, mean_err, med_err, in_tar, x_min, x_max, delta_x, y_max = params(race_chosen)
+df, winning_times, SD, ppt_count, mean_err, med_err, in_tar, x_min, x_max, delta_x, y_max = params(race_chosen)
 
 tab1, tab2 = st.tabs(['Prediction performance', 'Background information'])
 
@@ -122,9 +124,10 @@ with tab1:
     
     dash_1 = st.container(border=True)
     dash_2 = st.container(border=True)
-    dash_3 = st.container()
-    dash_4 = st.container(border=True)
+    dash_3 = st.container(border=True)
+    dash_4 = st.container()
     dash_5 = st.container(border=True)
+    dash_6 = st.container(border=True)
 
     with dash_1:
         
@@ -136,64 +139,87 @@ with tab1:
             disp_3 = race_chosen.split()[-1]
             st.header(f'{disp_1}', divider='blue')
             st.subheader(f'{disp_2} miles, N = {disp_3} participants')
-    
+            
     with dash_2:
         
-        col1, col2, col3 = st.columns(3)
+        m = len(SD)
         
-        with col1:
-            st.metric(
-                label = 'USU mean AE',
-                value = mean_err['USU_abs_err']
-                )
-            st.metric(
-                label='USU median AE', 
-                value = med_err['USU_abs_err']
-                )
-            st.metric(
-                label='USU \u00B11 std dev', 
-                value = in_tar['USU_in_target']
-                )
+        cols = st.columns(m)
+        i = 0
+        
+        for col in cols:
+            with col:
+                st.metric(
+                    label=f'{ppt_count.index[i]} count',
+                    value = ppt_count[i]
+                    )
+                st.metric(
+                    label=f'{winning_times.index[i]} win time',
+                    value = winning_times[i]
+                    )
+                st.metric(
+                    label=f'{SD.index[i]} std dev',
+                    value = SD[i]
+                    )
+                i += 1
+                
+        with dash_3:
+        
+            col1, col2, col3 = st.columns(3)
             
-            with col2:
+            with col1:
                 st.metric(
-                    label='MED mean AE', 
-                    value = mean_err['MED_abs_err']
+                    label = 'USU mean AE',
+                    value = mean_err['USU_abs_err']
                     )
                 st.metric(
-                    label='MED median AE', 
-                    value = med_err['MED_abs_err']
+                    label='USU median AE', 
+                    value = med_err['USU_abs_err']
                     )
                 st.metric(
-                    label='MED \u00B11 std dev', 
-                    value = in_tar['MED_in_target']
+                    label='USU \u00B11 std dev', 
+                    value = in_tar['USU_in_target']
                     )
-            
-            with col3:
-                st.metric(
-                    label='XGB mean AE', 
-                    value = mean_err['XGB_abs_err']
-                    )
-                st.metric(
-                    label='XGB median AE', 
-                    value = med_err['XGB_abs_err']
-                    )
-                st.metric(
-                    label='XGB \u00B11 std dev', 
-                    value = in_tar['XGB_in_target']
-                    )
+                
+                with col2:
+                    st.metric(
+                        label='MED mean AE', 
+                        value = mean_err['MED_abs_err']
+                        )
+                    st.metric(
+                        label='MED median AE', 
+                        value = med_err['MED_abs_err']
+                        )
+                    st.metric(
+                        label='MED \u00B11 std dev', 
+                        value = in_tar['MED_in_target']
+                        )
+                
+                with col3:
+                    st.metric(
+                        label='XGB mean AE', 
+                        value = mean_err['XGB_abs_err']
+                        )
+                    st.metric(
+                        label='XGB median AE', 
+                        value = med_err['XGB_abs_err']
+                        )
+                    st.metric(
+                        label='XGB \u00B11 std dev', 
+                        value = in_tar['XGB_in_target']
+                        )
     
-    with dash_3:
+    with dash_4:
         
         with st.expander('Notes'):
             
             notes = '''
-            - AE is Absolute Error 
-            - All error measurements are in minutes
+            - All time measurements are in minutes
+            - AE is Absolute Error
             '''
             st.markdown(notes)
         
-    with dash_4:
+    with dash_5:
         
         st.subheader('Signed error violin plots', divider=False)
             
@@ -239,7 +265,7 @@ with tab1:
             
         st.plotly_chart(fig_violin, use_container_width=True, theme=None)
     
-    with dash_5:
+    with dash_6:
         
         st.subheader('Prediction and result distributions', divider=False)
         
@@ -317,6 +343,3 @@ with tab2:
     prediction schemes on the test set.
     '''
     st.markdown(info)
-    
-    
-    
