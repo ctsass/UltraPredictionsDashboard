@@ -141,6 +141,8 @@ with tab1:
             st.subheader(f'{disp_2} miles, N = {disp_3} participants')
             
     with dash_2:
+
+        st.subheader('Race metrics', divider='gray')
         
         m = len(SD)
         
@@ -164,6 +166,8 @@ with tab1:
                 i += 1
                 
         with dash_3:
+
+            st.subheader('Error metrics', divider='gray')
         
             col1, col2, col3 = st.columns(3)
             
