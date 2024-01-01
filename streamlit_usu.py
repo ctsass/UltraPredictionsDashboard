@@ -233,6 +233,8 @@ with tab1:
     with dash_5:
         
         st.subheader('Signed error violin plots', divider=False)
+        
+        color = {'USU_pred':'tan', 'MED_pred':'steelblue', 'XGB_pred':'cadetblue'}
             
         fig_violin = go.Figure()
         fig_violin.add_trace(
@@ -241,7 +243,7 @@ with tab1:
                 box_visible=True, 
                 meanline_visible=True, 
                 line_color='black', 
-                fillcolor='cadetblue', 
+                fillcolor=color['XGB_pred'], 
                 opacity=0.8, 
                 name='XGB'
                 )
@@ -252,7 +254,7 @@ with tab1:
                 box_visible=True,
                 meanline_visible=True, 
                 line_color='black', 
-                fillcolor='salmon', 
+                fillcolor=color['MED_pred'], 
                 opacity=0.8, 
                 name='MED'
                 )
@@ -263,7 +265,7 @@ with tab1:
                 box_visible=True,
                 meanline_visible=True, 
                 line_color='black', 
-                fillcolor='tan', 
+                fillcolor=color['USU_pred'], 
                 opacity=0.8, 
                 name='USU'
                 )
@@ -286,10 +288,13 @@ with tab1:
             horizontal=True
             )
         
+        show_med = st.checkbox(
+            'Display medians for reference', 
+            value=False
+            )
+        
         col = col_chosen
         col_chosen += '_pred'
-        
-        color = {'USU_pred':'tan', 'MED_pred':'salmon', 'XGB_pred':'cadetblue'}
         
         fig = go.Figure()
         
@@ -318,6 +323,18 @@ with tab1:
                 bingroup=1
                 )
             )
+        if show_med:
+            style=['dot', 'dash', 'dashdot']
+            for i in range(len(med_times)):
+                fig.add_trace(
+                    go.Scatter(
+                        x=[med_times[i], med_times[i]], 
+                        y=[0, y_max], 
+                        mode = 'lines',
+                        line=dict(dash=style[i], color='firebrick'),
+                        name = f'{med_times.index[i]} med'
+                        )
+                    )
         fig.update_layout(
             barmode='overlay', 
             margin=dict(t=20), 
