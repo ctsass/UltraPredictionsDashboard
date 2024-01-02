@@ -281,46 +281,54 @@ else:
             
         with dash_15:
             
-            st.subheader('Signed error violin plots', divider=False)
+            st.subheader('Signed error box plots', divider=False)
                 
-            fig_violin = go.Figure()
-            fig_violin.add_trace(
-                go.Violin(
-                    x=df['XGB_err'], 
-                    box_visible=True, 
-                    line_color='black', 
-                    fillcolor=col_color['XGB_pred'], 
-                    opacity=0.8, 
-                    name='XGB'
-                    )
+            fig_box = go.Figure()
+            fig_box.add_trace(
+                go.Box(
+                x=df['XGB_err'], 
+                marker_symbol='line-ns-open', 
+                marker_color=color['XGB_pred'],
+                marker_size=18,
+                boxpoints='all',
+                jitter=0,
+                fillcolor=color['XGB_pred'],
+                line_color='black',
+                pointpos=-1.7
                 )
-            fig_violin.add_trace(
-                go.Violin(
-                    x=df['MED_err'], 
-                    box_visible=True,
-                    line_color='black', 
-                    fillcolor=col_color['MED_pred'], 
-                    opacity=0.8, 
-                    name='MED'
-                    )
+            )
+            fig_box.add_trace(
+                go.Box(
+                x=df['MED_err'], 
+                marker_symbol='line-ns-open', 
+                marker_color=color['MED_pred'],
+                marker_size=18,
+                boxpoints='all',
+                jitter=0,
+                fillcolor=color['MED_pred'],
+                line_color='black',
+                pointpos=-1.7
                 )
-            fig_violin.add_trace(
-                go.Violin(
-                    x=df['USU_err'], 
-                    box_visible=True,
-                    line_color='black', 
-                    fillcolor=col_color['USU_pred'], 
-                    opacity=0.8, 
-                    name='USU'
-                    )
+            )
+            fig_box.add_trace(
+                go.Box(
+                x=df['USU_err'], 
+                marker_symbol='line-ns-open', 
+                marker_color=color['USU_pred'],
+                marker_size=18,
+                boxpoints='all',
+                jitter=0,
+                fillcolor=color['USU_pred'],
+                line_color='black',
+                pointpos=-1.7
                 )
-            fig_violin.update_traces(orientation='h')
-            fig_violin.update_layout(
+            )
+            fig_box.update_traces(orientation='h')
+            fig_box.update_layout(
                 xaxis_title=dict(text='Prediction minus result (minutes)'),
                 margin=dict(t=20)
             )
-                
-            st.plotly_chart(fig_violin, use_container_width=True, theme=None)
+            st.plotly_chart(fig_box, use_container_width=True, theme=None)
             
     with tab2:
 
