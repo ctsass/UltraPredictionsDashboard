@@ -380,7 +380,7 @@ else:
         with dash_31:
 
             st.header(f'{name_only}', divider='gray')
-            st.subheader(f'{dist_only} miles)
+            st.subheader(f'{dist_only} miles')
             
         with dash_32:
             
