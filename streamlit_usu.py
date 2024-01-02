@@ -294,7 +294,8 @@ else:
                 jitter=0,
                 fillcolor=col_color['XGB_pred'],
                 line_color='black',
-                pointpos=-1.7
+                pointpos=-1.7,
+                name='XGB'
                 )
             )
             fig_box.add_trace(
@@ -307,7 +308,8 @@ else:
                 jitter=0,
                 fillcolor=col_color['MED_pred'],
                 line_color='black',
-                pointpos=-1.7
+                pointpos=-1.7,
+                name='MED'
                 )
             )
             fig_box.add_trace(
@@ -320,7 +322,8 @@ else:
                 jitter=0,
                 fillcolor=col_color['USU_pred'],
                 line_color='black',
-                pointpos=-1.7
+                pointpos=-1.7,
+                name='USU'
                 )
             )
             fig_box.update_traces(orientation='h')
