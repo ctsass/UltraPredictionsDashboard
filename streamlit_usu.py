@@ -138,15 +138,20 @@ else:
         
         mins = min_times[(min_times.race_name == name_only)
                             & (min_times.distance_miles == dist_only)]
+
+        col_color = {'USU_pred':'tan', 
+                     'MED_pred':'salmon', 
+                     'XGB_pred':'cadetblue'}
     
         return (df, winning_times, med_times, SD, ppt_count, mean_err, 
                 med_err, in_tar, bins[0], bins[-1], bins[1]-bins[0], 
-                y_max, name_only, dist_only, ppt_total, meds, mins)
+                y_max, name_only, dist_only, ppt_total, meds, mins, 
+                col_color)
     
     (df, winning_times, med_times, SD, ppt_count, mean_err, 
      med_err, in_tar, x_min, x_max, delta_x, 
      y_max, name_only, dist_only, ppt_total, 
-     meds, mins) = params(race_chosen)
+     meds, mins, col_color) = params(race_chosen)
     
     tab1, tab2, tab3, tab4 = st.tabs(['Prediction performance', 
                                       'Race metrics', 
@@ -249,7 +254,7 @@ else:
                         ), 
                     autobinx=False,
                     name=col,
-                    marker_color=color[col_chosen],
+                    marker_color=col_color[col_chosen],
                     opacity=0.8,
                     bingroup=1
                     )
@@ -277,10 +282,6 @@ else:
         with dash_15:
             
             st.subheader('Signed error violin plots', divider=False)
-            
-            color = {'USU_pred':'tan', 
-                     'MED_pred':'salmon', 
-                     'XGB_pred':'cadetblue'}
                 
             fig_violin = go.Figure()
             fig_violin.add_trace(
@@ -289,7 +290,7 @@ else:
                     box_visible=True, 
                     meanline_visible=True, 
                     line_color='black', 
-                    fillcolor=color['XGB_pred'], 
+                    fillcolor=col_color['XGB_pred'], 
                     opacity=0.8, 
                     name='XGB'
                     )
@@ -300,7 +301,7 @@ else:
                     box_visible=True,
                     meanline_visible=True, 
                     line_color='black', 
-                    fillcolor=color['MED_pred'], 
+                    fillcolor=col_color['MED_pred'], 
                     opacity=0.8, 
                     name='MED'
                     )
@@ -311,7 +312,7 @@ else:
                     box_visible=True,
                     meanline_visible=True, 
                     line_color='black', 
-                    fillcolor=color['USU_pred'], 
+                    fillcolor=col_color['USU_pred'], 
                     opacity=0.8, 
                     name='USU'
                     )
