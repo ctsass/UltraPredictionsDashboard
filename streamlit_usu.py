@@ -223,58 +223,8 @@ else:
                 - AE is Absolute Error
                 '''
                 st.markdown(notes)
-            
-        with dash_14:
-            
-            st.subheader('Signed error violin plots', divider=False)
-            
-            color = {'USU_pred':'tan', 
-                     'MED_pred':'salmon', 
-                     'XGB_pred':'cadetblue'}
-                
-            fig_violin = go.Figure()
-            fig_violin.add_trace(
-                go.Violin(
-                    x=df['XGB_err'], 
-                    box_visible=True, 
-                    meanline_visible=True, 
-                    line_color='black', 
-                    fillcolor=color['XGB_pred'], 
-                    opacity=0.8, 
-                    name='XGB'
-                    )
-                )
-            fig_violin.add_trace(
-                go.Violin(
-                    x=df['MED_err'], 
-                    box_visible=True,
-                    meanline_visible=True, 
-                    line_color='black', 
-                    fillcolor=color['MED_pred'], 
-                    opacity=0.8, 
-                    name='MED'
-                    )
-                )
-            fig_violin.add_trace(
-                go.Violin(
-                    x=df['USU_err'], 
-                    box_visible=True,
-                    meanline_visible=True, 
-                    line_color='black', 
-                    fillcolor=color['USU_pred'], 
-                    opacity=0.8, 
-                    name='USU'
-                    )
-                )
-            fig_violin.update_traces(orientation='h')
-            fig_violin.update_layout(
-                xaxis_title=dict(text='Prediction minus result (minutes)'),
-                margin=dict(t=20)
-            )
-                
-            st.plotly_chart(fig_violin, use_container_width=True, theme=None)
         
-        with dash_15:
+        with dash_14:
             
             st.subheader('Prediction and result distributions', divider=False)
             
@@ -323,6 +273,56 @@ else:
             fig.update_xaxes(range = [x_min-1, x_max+1])
             
             st.plotly_chart(fig, use_container_width=True, theme=None)
+            
+            with dash_15:
+            
+            st.subheader('Signed error violin plots', divider=False)
+            
+            color = {'USU_pred':'tan', 
+                     'MED_pred':'salmon', 
+                     'XGB_pred':'cadetblue'}
+                
+            fig_violin = go.Figure()
+            fig_violin.add_trace(
+                go.Violin(
+                    x=df['XGB_err'], 
+                    box_visible=True, 
+                    meanline_visible=True, 
+                    line_color='black', 
+                    fillcolor=color['XGB_pred'], 
+                    opacity=0.8, 
+                    name='XGB'
+                    )
+                )
+            fig_violin.add_trace(
+                go.Violin(
+                    x=df['MED_err'], 
+                    box_visible=True,
+                    meanline_visible=True, 
+                    line_color='black', 
+                    fillcolor=color['MED_pred'], 
+                    opacity=0.8, 
+                    name='MED'
+                    )
+                )
+            fig_violin.add_trace(
+                go.Violin(
+                    x=df['USU_err'], 
+                    box_visible=True,
+                    meanline_visible=True, 
+                    line_color='black', 
+                    fillcolor=color['USU_pred'], 
+                    opacity=0.8, 
+                    name='USU'
+                    )
+                )
+            fig_violin.update_traces(orientation='h')
+            fig_violin.update_layout(
+                xaxis_title=dict(text='Prediction minus result (minutes)'),
+                margin=dict(t=20)
+            )
+                
+            st.plotly_chart(fig_violin, use_container_width=True, theme=None)
             
     with tab2:
 
