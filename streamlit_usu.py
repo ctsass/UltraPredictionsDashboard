@@ -288,7 +288,6 @@ else:
                 go.Violin(
                     x=df['XGB_err'], 
                     box_visible=True, 
-                    meanline_visible=True, 
                     line_color='black', 
                     fillcolor=col_color['XGB_pred'], 
                     opacity=0.8, 
@@ -299,7 +298,6 @@ else:
                 go.Violin(
                     x=df['MED_err'], 
                     box_visible=True,
-                    meanline_visible=True, 
                     line_color='black', 
                     fillcolor=col_color['MED_pred'], 
                     opacity=0.8, 
@@ -310,7 +308,6 @@ else:
                 go.Violin(
                     x=df['USU_err'], 
                     box_visible=True,
-                    meanline_visible=True, 
                     line_color='black', 
                     fillcolor=col_color['USU_pred'], 
                     opacity=0.8, 
