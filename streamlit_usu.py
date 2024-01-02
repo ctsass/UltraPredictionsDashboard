@@ -344,8 +344,8 @@ else:
             for col in cols:
                 with col:
                     st.metric(
-                        label=f'{ppt_count.index[i]} count',
-                        value = ppt_count[i]
+                        label=f'{SD.index[i]} std dev',
+                        value = SD[i]
                         )
                     st.metric(
                         label=f'{winning_times.index[i]} win time',
@@ -356,8 +356,8 @@ else:
                         value = med_times[i]
                         )
                     st.metric(
-                        label=f'{SD.index[i]} std dev',
-                        value = SD[i]
+                        label=f'{ppt_count.index[i]} count',
+                        value = ppt_count[i]
                         )
                     i += 1
         with dash_23:
