@@ -288,7 +288,7 @@ else:
                 go.Box(
                 x=df['XGB_err'], 
                 marker_symbol='line-ns-open', 
-                marker_color=color['XGB_pred'],
+                marker_color=col_color['XGB_pred'],
                 marker_size=18,
                 boxpoints='all',
                 jitter=0,
@@ -301,7 +301,7 @@ else:
                 go.Box(
                 x=df['MED_err'], 
                 marker_symbol='line-ns-open', 
-                marker_color=color['MED_pred'],
+                marker_color=col_color['MED_pred'],
                 marker_size=18,
                 boxpoints='all',
                 jitter=0,
@@ -318,7 +318,7 @@ else:
                 marker_size=18,
                 boxpoints='all',
                 jitter=0,
-                fillcolor=color['USU_pred'],
+                fillcolor=col_color['USU_pred'],
                 line_color='black',
                 pointpos=-1.7
                 )
