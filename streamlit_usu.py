@@ -329,7 +329,7 @@ else:
 
         dash_21 = st.container(border=True)
         dash_22 = st.container(border=True)
-        dash_23 = st.container(border=True)
+        dash_23 = st.container()
         
         with dash_21:
 
