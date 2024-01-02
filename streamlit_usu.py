@@ -274,7 +274,7 @@ else:
             
             st.plotly_chart(fig, use_container_width=True, theme=None)
             
-            with dash_15:
+        with dash_15:
             
             st.subheader('Signed error violin plots', divider=False)
             
