@@ -179,6 +179,10 @@ else:
             
             with col1:
                 st.metric(
+                    label='USU \u00B11 std dev', 
+                    value = in_tar['USU_in_target']
+                    )
+                st.metric(
                     label = 'USU mean AE',
                     value = mean_err['USU_abs_err']
                     )
@@ -186,12 +190,12 @@ else:
                     label='USU median AE', 
                     value = med_err['USU_abs_err']
                     )
-                st.metric(
-                    label='USU \u00B11 std dev', 
-                    value = in_tar['USU_in_target']
-                    )
                 
                 with col2:
+                    st.metric(
+                        label='MED \u00B11 std dev', 
+                        value = in_tar['MED_in_target']
+                        )
                     st.metric(
                         label='MED mean AE', 
                         value = mean_err['MED_abs_err']
@@ -200,12 +204,12 @@ else:
                         label='MED median AE', 
                         value = med_err['MED_abs_err']
                         )
-                    st.metric(
-                        label='MED \u00B11 std dev', 
-                        value = in_tar['MED_in_target']
-                        )
                 
                 with col3:
+                    st.metric(
+                        label='XGB \u00B11 std dev', 
+                        value = in_tar['XGB_in_target']
+                        )
                     st.metric(
                         label='XGB mean AE', 
                         value = mean_err['XGB_abs_err']
@@ -213,10 +217,6 @@ else:
                     st.metric(
                         label='XGB median AE', 
                         value = med_err['XGB_abs_err']
-                        )
-                    st.metric(
-                        label='XGB \u00B11 std dev', 
-                        value = in_tar['XGB_in_target']
                         )
         
         with dash_13:
