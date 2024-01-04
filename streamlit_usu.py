@@ -476,7 +476,7 @@ else:
                 
             fig.update_layout(margin=dict(t=20),
                               xaxis_title='Date',
-                              yaxis_title='Time (minutes)')
+                              yaxis_title='Time (hours)')
             fig.update_layout(showlegend=True)
             
             st.plotly_chart(fig, use_container_width=True, theme=None)
