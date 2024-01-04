@@ -76,15 +76,15 @@ else:
         
         winning_times = df[['ppt_gender', 'time']].copy()
         winning_times = winning_times.groupby('ppt_gender')['time'].min()
-        winning_times = winning_times.map("{:,.1f}".format)
+        winning_times = winning_times.map("{:,.2f}".format)
     
         med_times = df[['ppt_gender', 'time']].copy()
         med_times = med_times.groupby('ppt_gender')['time'].median()
-        med_times = med_times.map("{:,.1f}".format)
+        med_times = med_times.map("{:,.2f}".format)
     
         SD = df[['ppt_gender', 'time']].copy()
         SD = SD.groupby('ppt_gender')['time'].std(ddof=0)
-        SD = SD.map("{:,.1f}".format)
+        SD = SD.map("{:,.2f}".format)
         
         ppt_count = df[['ppt_gender', 'time']].copy()
         ppt_count = ppt_count.groupby('ppt_gender')['time'].count()
@@ -165,6 +165,7 @@ else:
         dash_13 = st.container()
         dash_14 = st.container(border=True)
         dash_15 = st.container(border=True)
+        dash_16 = st.container(border=True)
     
         with dash_11:
     
@@ -224,7 +225,7 @@ else:
             with st.expander('Notes'):
                 
                 notes = '''
-                - All time measurements are in minutes
+                - All time measurements are in hours
                 - AE is Absolute Error
                 '''
                 st.markdown(notes)
@@ -272,10 +273,10 @@ else:
             fig.update_layout(
                 barmode='overlay', 
                 margin=dict(t=20), 
-                xaxis_title=dict(text='Minutes')
+                xaxis_title=dict(text='Time (hours)')
                 )
             fig.update_yaxes(range = [0, y_max])
-            fig.update_xaxes(range = [x_min-1, x_max+1])
+            fig.update_xaxes(range = [x_min-0.02, x_max+0.02])
             
             st.plotly_chart(fig, use_container_width=True, theme=None)
             
@@ -283,8 +284,8 @@ else:
             
             st.subheader('Signed error box plots', divider=False)
                 
-            fig_box = go.Figure()
-            fig_box.add_trace(
+            fig = go.Figure()
+            fig.add_trace(
                 go.Box(
                 x=df['XGB_err'], 
                 marker_symbol='line-ns-open', 
@@ -298,7 +299,7 @@ else:
                 name='XGB'
                 )
             )
-            fig_box.add_trace(
+            fig.add_trace(
                 go.Box(
                 x=df['MED_err'], 
                 marker_symbol='line-ns-open', 
@@ -312,7 +313,7 @@ else:
                 name='MED'
                 )
             )
-            fig_box.add_trace(
+            fig.add_trace(
                 go.Box(
                 x=df['USU_err'], 
                 marker_symbol='line-ns-open', 
@@ -326,12 +327,66 @@ else:
                 name='USU'
                 )
             )
-            fig_box.update_traces(orientation='h')
-            fig_box.update_layout(
-                xaxis_title=dict(text='Prediction minus result (minutes)'),
+            fig.update_traces(orientation='h')
+            fig.update_layout(
+                xaxis_title=dict(text='Prediction minus result (hours)'),
                 margin=dict(t=20)
             )
-            st.plotly_chart(fig_box, use_container_width=True, theme=None)
+            st.plotly_chart(fig, use_container_width=True, theme=None)
+            
+        with dash_16:
+            
+            st.subheader('Absolute error box plots', divider=False)
+                
+            fig = go.Figure()
+            fig.add_trace(
+                go.Box(
+                x=df['XGB_abs_err'], 
+                marker_symbol='line-ns-open', 
+                marker_color=col_color['XGB_pred'],
+                marker_size=18,
+                boxpoints='all',
+                jitter=0,
+                fillcolor=col_color['XGB_pred'],
+                line_color='black',
+                pointpos=-1.7,
+                name='XGB'
+                )
+            )
+            fig.add_trace(
+                go.Box(
+                x=df['MED_abs_err'], 
+                marker_symbol='line-ns-open', 
+                marker_color=col_color['MED_pred'],
+                marker_size=18,
+                boxpoints='all',
+                jitter=0,
+                fillcolor=col_color['MED_pred'],
+                line_color='black',
+                pointpos=-1.7,
+                name='MED'
+                )
+            )
+            fig.add_trace(
+                go.Box(
+                x=df['USU_abs_err'], 
+                marker_symbol='line-ns-open', 
+                marker_color=col_color['USU_pred'],
+                marker_size=18,
+                boxpoints='all',
+                jitter=0,
+                fillcolor=col_color['USU_pred'],
+                line_color='black',
+                pointpos=-1.7,
+                name='USU'
+                )
+            )
+            fig.update_traces(orientation='h')
+            fig.update_layout(
+                xaxis_title=dict(text='Absolute error (hours)'),
+                margin=dict(t=20)
+            )
+            st.plotly_chart(fig, use_container_width=True, theme=None)
             
     with tab2:
 
@@ -359,16 +414,16 @@ else:
                         value = SD[i]
                         )
                     st.metric(
-                        label=f'{winning_times.index[i]} win time',
-                        value = winning_times[i]
+                        label=f'{ppt_count.index[i]} count',
+                        value = ppt_count[i]
                         )
                     st.metric(
                         label=f'{med_times.index[i]} median time',
                         value = med_times[i]
                         )
                     st.metric(
-                        label=f'{ppt_count.index[i]} count',
-                        value = ppt_count[i]
+                        label=f'{winning_times.index[i]} win time',
+                        value = winning_times[i]
                         )
                     i += 1
         with dash_23:
@@ -376,7 +431,7 @@ else:
             with st.expander('Note'):
                 
                 note = '''
-                All time measurements are in minutes
+                All time measurements are in hours
                 '''
                 st.markdown(note)
     
