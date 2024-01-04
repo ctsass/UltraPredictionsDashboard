@@ -283,17 +283,18 @@ else:
             
         with dash_15:
             
-            st.subheader('Signed error box plots', divider=False)
+            st.subheader('Signed error violin plots', divider=False)
                 
             fig = go.Figure()
             fig.add_trace(
-                go.Box(
+                go.Violin(
                 x=df['XGB_err'], 
                 marker_symbol='line-ns-open', 
                 marker_color=col_color['XGB_pred'],
                 marker_size=18,
-                boxpoints='all',
+                points='all',
                 jitter=0,
+                box_visible=True,
                 fillcolor=col_color['XGB_pred'],
                 line_color='black',
                 pointpos=-1.7,
@@ -301,13 +302,14 @@ else:
                 )
             )
             fig.add_trace(
-                go.Box(
+                go.Violin(
                 x=df['MED_err'], 
                 marker_symbol='line-ns-open', 
                 marker_color=col_color['MED_pred'],
                 marker_size=18,
-                boxpoints='all',
+                points='all',
                 jitter=0,
+                box_visible=True,
                 fillcolor=col_color['MED_pred'],
                 line_color='black',
                 pointpos=-1.7,
@@ -315,13 +317,14 @@ else:
                 )
             )
             fig.add_trace(
-                go.Box(
+                go.Violin(
                 x=df['USU_err'], 
                 marker_symbol='line-ns-open', 
                 marker_color=col_color['USU_pred'],
                 marker_size=18,
-                boxpoints='all',
+                points='all',
                 jitter=0,
+                box_visible=True,
                 fillcolor=col_color['USU_pred'],
                 line_color='black',
                 pointpos=-1.7,
