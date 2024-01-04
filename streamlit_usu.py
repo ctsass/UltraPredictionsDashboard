@@ -196,7 +196,7 @@ else:
             involved making simple modifications to the Ultrasignup target time 
             formula. It essentially replaces comparisons to minimum times
             with comparisons to median times. The second, XGB, involved
-            engineering features and implementating an XGBoost
+            engineering features and implementing an XGBoost
             regression.
             
             Both methods easily exceed the baseline accuracy of USU target 
