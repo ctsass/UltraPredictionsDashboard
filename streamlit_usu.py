@@ -227,6 +227,7 @@ else:
                 notes = '''
                 - All time measurements are in hours
                 - AE is Absolute Error
+                - Standard deviation is calculated by gender
                 '''
                 st.markdown(notes)
         
@@ -342,6 +343,7 @@ else:
             fig.add_trace(
                 go.Box(
                 x=df['XGB_abs_err'], 
+                boxmean=True,
                 marker_symbol='line-ns-open', 
                 marker_color=col_color['XGB_pred'],
                 marker_size=18,
@@ -356,6 +358,7 @@ else:
             fig.add_trace(
                 go.Box(
                 x=df['MED_abs_err'], 
+                boxmean=True,
                 marker_symbol='line-ns-open', 
                 marker_color=col_color['MED_pred'],
                 marker_size=18,
@@ -370,6 +373,7 @@ else:
             fig.add_trace(
                 go.Box(
                 x=df['USU_abs_err'], 
+                boxmean=True,
                 marker_symbol='line-ns-open', 
                 marker_color=col_color['USU_pred'],
                 marker_size=18,
