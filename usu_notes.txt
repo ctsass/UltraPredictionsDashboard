@@ -1,4 +1,4 @@
-The following are from Ultrasignup's FAQ page:
+The following are from UltraSignup's FAQ page:
 - Runner rank is simply an average of your past results in
 our database. For each race, we take the gender specific 
 best time (winner) and divide that time by each participant’s
