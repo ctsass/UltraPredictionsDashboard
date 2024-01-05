@@ -7,7 +7,7 @@ based on comparisons of participant times to winning times.
 (See below for further details.) These target times are not necessarily
 to be interpreted as finish time predictions.
 
-I was intersted in what level of accuracy was possible for
+I was intersted in what level of accuracy would be possible for
 finish time predictions. This is a difficult problem, as ultra and trail 
 racing are inherently high variance activites, due to factors such as tough 
 terrain, the potential for bad weather, and long distances. 
