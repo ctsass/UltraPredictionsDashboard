@@ -87,6 +87,8 @@ if len(updated_races) == 0:
 
 else:
     @st.cache_data
+    # Big function to calculate and cache values and structures for subsequent use
+    # Collapse to get a better sense of app components
     def params(race_chosen):
     
         df = data[data.race_name == race_chosen]
