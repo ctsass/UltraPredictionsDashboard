@@ -15,7 +15,6 @@ data scientist. We agreed to use the Ultrasignup target times
 as a baseline to compare prediction accuracy against, and he sent me
 a dataset of 1.4+ million results to work with.
 
-
 After a lot of exploring, prototyping, rejecting, revising, 
 and tuning, I settled on two prediction methods. 
 The first, MED, 
@@ -24,7 +23,6 @@ formula. It essentially replaces comparisons to minimum times
 with comparisons to median times. The second, XGB, involved
 engineering features and implementing an XGBoost
 regression.
-
 
 Both methods easily exceed the baseline accuracy of USU target 
 times. This app shows the outcomes of the three schemes on
