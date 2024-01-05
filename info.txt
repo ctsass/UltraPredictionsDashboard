@@ -31,7 +31,6 @@ the portion of the dataset I reserved for testing.
  and the test set.) **Note**: All time measurements in 
 this app are in hours.
 
-
 One last fun comment. Three of the 
 most famous ultramarathons in the United States happened to 
 appear in
