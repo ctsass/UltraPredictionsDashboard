@@ -86,9 +86,11 @@ if len(updated_races) == 0:
     st.warning('There are no races within filtered ranges')
 
 else:
-    @st.cache_data
+    
     # Big function to calculate and cache values and structures for subsequent use
     # Collapse to get a better sense of app components
+    
+    @st.cache_data
     def params(race_chosen):
     
         df = data[data.race_name == race_chosen]
