@@ -1,0 +1,22 @@
+- The original dataset contained 1,429,253 race results with
+dates ranging from 08-24-2018 to 08-05-2023.
+- After removing probable non-running races, 
+there were 1,191,678 results in the filtered dataset.
+- In order to engineer features to be used for predictions, 
+two pieces of information were needed:
+at least one earlier result for the participant and the 
+results from at least one previous running of the race.
+- So a large portion of the filtered dataset could only be
+used to engineer features for examples occurring later
+(by date) in the filtered dataset.
+- The final engineered dataset contained 459,433 examples 
+with features for predictions.
+- This dataset was split by date into training and test sets
+in order to train and evaluate an XGBoost algorithm 
+for predicting finish times.
+- The train set contained 419,861 examples, with dates 
+ranging from 02-17-2019 to 04-30-2023.
+- The test set contained 39,572 examples, with dates 
+ranging from 05-01-2023 to 08-05-2023.
+- This app contains information about the performance of 
+USU targets and the two prediction schemes on the test set.

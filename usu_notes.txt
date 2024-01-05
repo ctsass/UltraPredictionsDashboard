@@ -1,0 +1,14 @@
+The following are from Ultrasignup's FAQ page:
+- Runner rank is simply an average of your past results in
+our database. For each race, we take the gender specific 
+best time (winner) and divide that time by each participant’s
+time. The result is a value less than 100% with winners
+receiving the full 100%. The average of the participant’s 
+past races is their ranking.
+- The target column is simply the average winning time
+of an event over the past 4 years divided by your 
+“Runner rank”. Like “Runner rank”, it is meant to be a fun
+way to view your future performances. If you are not happy
+with the target the computer gave you, use that as a 
+motivator to prove it wrong. It is not perfect and is not 
+meant to interfere with your actual running.
