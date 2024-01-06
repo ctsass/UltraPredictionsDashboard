@@ -16,7 +16,7 @@ finish time predictions. This is a difficult problem, as ultra and trail
 racing are inherently high variance activites, due to factors such as tough 
 terrain, the potential for bad weather, and long distances. 
 In partnership with UltraSignup, 
-I was provided with a dataset of 1.4+ million results to test my ideas
+I was provided with a dataset of 1.4+ million results to test my models
 against the USU target times as a baseline.
 
 After a lot of exploring, prototyping, rejecting, revising, 
@@ -32,6 +32,7 @@ Both methods easily exceed the baseline accuracy of USU target
 times. This app shows the outcomes of the three schemes on
 the portion of the dataset I reserved for testing.
 (See app for further information about the dataset and the test set.)
+
 **Note**: All time measurements in 
 this app are in hours.
 
