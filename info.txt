@@ -1,4 +1,5 @@
-UltraSignup, the leading marketplace and registration platform for
+[UltraSignup](https://ultrasignup.com/), 
+the leading marketplace and registration platform for
 trail and ultra races in the United States, provides a target time
 for participants when they register for a race. The platform also 
 displays a runner rank for each participant who completes a
@@ -16,7 +17,7 @@ I was provided with a dataset of 1.4+ million results to test my ideas
 against the USU target times as a baseline.
 
 After a lot of exploring, prototyping, rejecting, revising, 
-and tuning, I settled on two prediction methods. 
+and refining, I settled on two prediction methods. 
 The first, MED, 
 involved making simple modifications to the UltraSignup target time 
 formula. It essentially replaces comparisons to minimum times
