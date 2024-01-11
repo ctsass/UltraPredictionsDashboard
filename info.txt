@@ -8,7 +8,7 @@ based on comparisons of participant times to winning times.
 (See below for further details.) These target times are not necessarily
 to be interpreted as finish time predictions.
 
-I was intersted in what level of accuracy would be possible for
+UltraSignup and I were intersted in what level of accuracy would be possible for
 finish time predictions. This is a difficult problem, as ultra and trail 
 racing are inherently high variance activites, due to factors such as tough 
 terrain, the potential for bad weather, and long distances. 
@@ -26,7 +26,10 @@ engineering features and implementing an XGBoost
 regression.
 
 Both methods easily exceed the baseline accuracy of USU target 
-times. This app shows the outcomes of the three schemes on
+times. UltraSignup is currently considering these methods for 
+possible implementation.
+
+This app shows the outcomes of the three schemes on
 the portion of the dataset I reserved for testing.
 (See below for further information about the dataset 
  and the test set.)
