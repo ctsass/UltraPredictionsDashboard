@@ -12,7 +12,7 @@ UltraSignup and I were intersted in what level of accuracy would be possible for
 finish time predictions. This is a difficult problem, as ultra and trail 
 racing are inherently high variance activites, due to factors such as tough 
 terrain, the potential for bad weather, and long distances. 
-UltraSignup provided my with a set of 1.4+ million results
+UltraSignup provided me with a set of 1.4+ million results
 from their database to test my models
 against, using the USU target times as a baseline.
 
