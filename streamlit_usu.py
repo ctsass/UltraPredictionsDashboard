@@ -97,10 +97,11 @@ with st.sidebar:
 if len(updated_races) == 0:
     st.warning('There are no races within filtered ranges')
 
-# Big function for caching data and structures
-# Collapse for easier overview of app structure
-
 else:
+
+    # Big function for caching data and structures
+    # Collapse for easier overview of app structure
+
     @st.cache_data
     def params(race_chosen):
     
