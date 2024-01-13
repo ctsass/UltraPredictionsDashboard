@@ -15,7 +15,13 @@ def load_text(path):
     pattern = re.compile("\n\n")
     return pattern.split(text)
 
-info = load_text('info.txt')
+info_1 = load_text('info_1.txt')
+
+info_2 = load_text('info_2.txt')
+
+info_3 = load_text('info_3.txt')
+
+info_4 = load_text('info_4.txt')
 
 usu_notes = load_text('usu_notes.txt')
 
@@ -31,6 +37,10 @@ median_times = load_data('median_times.csv')
 
 min_times = load_data('min_times.csv')
 
+data_med = load_data('test_median.csv')
+
+data_mean = load_data('test_mean.csv')
+
 races = data['race_name'].sort_values().unique()
 
 st.title("Ultramarathon Predictions")
@@ -43,7 +53,7 @@ max_dist = data.dist.max()
 
 with st.sidebar:
     
-    st.title('Test set race selection')
+    st.title('Race selection')
     
     test_note = '''**Note**: All test set races 
     occurred in 2023.
@@ -80,16 +90,14 @@ with st.sidebar:
     else:
         st.info(f'There are {len(updated_races)} races within filtered ranges.')
     
-    race_chosen = st.selectbox('Select a race', updated_races)
+    race_chosen = st.selectbox('Select a race', 
+                               updated_races, 
+                               index=742 if len(updated_races) == len(races) else 0)
 
 if len(updated_races) == 0:
     st.warning('There are no races within filtered ranges')
 
 else:
-    
-    # Big function to calculate and cache values and structures for subsequent use
-    # Collapse to get a better sense of app components
-    
     @st.cache_data
     def params(race_chosen):
     
@@ -184,16 +192,94 @@ else:
      y_max, name_only, dist_only, ppt_total, col_color, history_color, 
      gen_meds, gen_mins) = params(race_chosen)
     
-    tab1, tab2, tab3, tab4 = st.tabs(['Project information', 
-                                      'Prediction performance', 
-                                      'Race metrics', 
-                                      'Race history'])
+    tab1, tab2, tab4 = st.tabs(['Project information', 
+                                      'Race-specific prediction performance', 
+                                      'Race-specific history'])
     
     with tab1:
         
+        with st.container():
+            
+            for par in info_1:
+                st.markdown(par)
+        
         with st.container(border=True):
             
-            for par in info:
+            st.subheader('Median percent error', 
+                         divider=False)
+        
+            fig = go.Figure()
+            
+            preds = ['USU', 'MED', 'XGB']
+            col_color = {'USU_pred':'tan', 
+                         'MED_pred':'salmon', 
+                         'XGB_pred':'cadetblue'}
+            
+            for pred in preds:
+                fig.add_trace(
+                    go.Bar(
+                    x=data_med.length_range,
+                    y=data_med[pred+'_pe'], 
+                    marker_color=col_color[pred+'_pred'],
+                    name=pred
+                    )
+                )
+            
+            fig.update_layout(
+                barmode='group', 
+                bargroupgap=0.1,
+                xaxis_tickangle=-45,
+                xaxis_title=dict(text='Length ranges (miles)'),
+                yaxis=dict(tickformat=".2%"),
+                margin=dict(t=25)
+            )
+            
+            st.plotly_chart(fig, use_container_width=True, theme=None)
+        
+        with st.container():
+            
+            for par in info_2:
+                st.markdown(par)
+        
+        with st.container(border=True):
+            
+            st.subheader('Percent within 1 standard deviation (by gender)', 
+                         divider=False)
+        
+            fig = go.Figure()
+            
+            for pred in preds:
+                fig.add_trace(
+                    go.Bar(
+                    x=data_mean.length_range,
+                    y=data_mean[pred+'_in_target'], 
+                    marker_color=col_color[pred+'_pred'],
+                    name=pred
+                    )
+                )
+            
+            fig.update_layout(
+                barmode='group', 
+                bargroupgap=0.1,
+                xaxis_tickangle=-45,
+                xaxis_title=dict(text='Length ranges (miles)'),
+                yaxis=dict(tickformat=".2%"),
+                margin=dict(t=25)
+            )
+            
+            st.plotly_chart(fig, use_container_width=True, theme=None)
+        
+        with st.container():
+            
+            for par in info_3:
+                st.markdown(par)
+                
+        with st.container():
+            
+            st.subheader('Summary', 
+                         divider='gray')
+            
+            for par in info_4:
                 st.markdown(par)
         
         with st.container():
@@ -219,7 +305,7 @@ else:
                 
         with st.container(border=True):
     
-            st.subheader('Error metrics', 
+            st.subheader('Accuracy and error metrics', 
                          divider='gray')
             
             for col, pred in zip(st.columns(3), preds):
@@ -248,6 +334,33 @@ else:
                 - Standard deviation is calculated by gender
                 '''
                 st.markdown(notes)
+                    
+        with st.container():
+            
+            with st.expander('Race metrics'):
+                
+                m = len(SD)
+                i = 0
+                
+                for col in st.columns(m):
+                    with col:
+                        st.metric(
+                            label=f'{SD.index[i]} std dev',
+                            value = SD[i]
+                            )
+                        st.metric(
+                            label=f'{ppt_count.index[i]} count',
+                            value = ppt_count[i]
+                            )
+                        st.metric(
+                            label=f'{med_times.index[i]} median time',
+                            value = med_times[i]
+                            )
+                        st.metric(
+                            label=f'{winning_times.index[i]} win time',
+                            value = winning_times[i]
+                            )
+                        i += 1
         
         with st.container(border=True):
             
@@ -362,49 +475,49 @@ else:
             
             st.plotly_chart(fig, use_container_width=True, theme=None)
             
-    with tab3:
+    # with tab3:
         
-        with st.container(border=True):
+    #     with st.container(border=True):
 
-            st.header(f'{name_only}', divider='gray')
-            st.subheader(f'{dist_only} miles, N = {ppt_total} participants')
+    #         st.header(f'{name_only}', divider='gray')
+    #         st.subheader(f'{dist_only} miles, N = {ppt_total} participants')
                 
-        with st.container(border=True):
+    #     with st.container(border=True):
     
-            st.subheader('Race metrics', 
-                         divider='gray')
+    #         st.subheader('Race metrics', 
+    #                      divider='gray')
             
-            m = len(SD)
-            i = 0
+    #         m = len(SD)
+    #         i = 0
             
-            for col in st.columns(m):
-                with col:
-                    st.metric(
-                        label=f'{SD.index[i]} std dev',
-                        value = SD[i]
-                        )
-                    st.metric(
-                        label=f'{ppt_count.index[i]} count',
-                        value = ppt_count[i]
-                        )
-                    st.metric(
-                        label=f'{med_times.index[i]} median time',
-                        value = med_times[i]
-                        )
-                    st.metric(
-                        label=f'{winning_times.index[i]} win time',
-                        value = winning_times[i]
-                        )
-                    i += 1
+    #         for col in st.columns(m):
+    #             with col:
+    #                 st.metric(
+    #                     label=f'{SD.index[i]} std dev',
+    #                     value = SD[i]
+    #                     )
+    #                 st.metric(
+    #                     label=f'{ppt_count.index[i]} count',
+    #                     value = ppt_count[i]
+    #                     )
+    #                 st.metric(
+    #                     label=f'{med_times.index[i]} median time',
+    #                     value = med_times[i]
+    #                     )
+    #                 st.metric(
+    #                     label=f'{winning_times.index[i]} win time',
+    #                     value = winning_times[i]
+    #                     )
+    #                 i += 1
                     
-        with st.container():
+    #     with st.container():
             
-            with st.expander('Note'):
+    #         with st.expander('Note'):
                 
-                note = '''
-                All time measurements are in hours
-                '''
-                st.markdown(note)
+    #             note = '''
+    #             All time measurements are in hours
+    #             '''
+    #             st.markdown(note)
     
     with tab4:
         
@@ -432,7 +545,7 @@ else:
                 fig.add_trace(go.Scatter(
                     x=mins.date, 
                     y=mins.min_time, 
-                    name=gen+' win',
+                    name=gen+' median',
                     line = dict(color=history_color[gen],
                                 dash='dot')))
             fig.update_layout(margin=dict(t=20),
