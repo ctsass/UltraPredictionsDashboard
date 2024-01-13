@@ -97,6 +97,9 @@ with st.sidebar:
 if len(updated_races) == 0:
     st.warning('There are no races within filtered ranges')
 
+# Big function for caching data and structures
+# Collapse for easier overview of app structure
+
 else:
     @st.cache_data
     def params(race_chosen):
@@ -474,50 +477,6 @@ else:
             )
             
             st.plotly_chart(fig, use_container_width=True, theme=None)
-            
-    # with tab3:
-        
-    #     with st.container(border=True):
-
-    #         st.header(f'{name_only}', divider='gray')
-    #         st.subheader(f'{dist_only} miles, N = {ppt_total} participants')
-                
-    #     with st.container(border=True):
-    
-    #         st.subheader('Race metrics', 
-    #                      divider='gray')
-            
-    #         m = len(SD)
-    #         i = 0
-            
-    #         for col in st.columns(m):
-    #             with col:
-    #                 st.metric(
-    #                     label=f'{SD.index[i]} std dev',
-    #                     value = SD[i]
-    #                     )
-    #                 st.metric(
-    #                     label=f'{ppt_count.index[i]} count',
-    #                     value = ppt_count[i]
-    #                     )
-    #                 st.metric(
-    #                     label=f'{med_times.index[i]} median time',
-    #                     value = med_times[i]
-    #                     )
-    #                 st.metric(
-    #                     label=f'{winning_times.index[i]} win time',
-    #                     value = winning_times[i]
-    #                     )
-    #                 i += 1
-                    
-    #     with st.container():
-            
-    #         with st.expander('Note'):
-                
-    #             note = '''
-    #             All time measurements are in hours
-    #             '''
-    #             st.markdown(note)
     
     with tab4:
         
