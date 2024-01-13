@@ -1,0 +1,9 @@
+Moreover, each race will have its own spread of
+finish times. Two predictions having the 
+same percent error at different races should be
+interpreted differently; the better of the two 
+is the one at the race where results are more
+spread out. Additionally, result spread varies by 
+gender. The following graph shows that MED and XGB exceed
+the baseline accuracy of USU target times with respect 
+to these measures as well.

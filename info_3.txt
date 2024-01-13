@@ -1,0 +1,21 @@
+Further insights are available by drilling down
+into race-specific prediction outcomes. To view these,
+use the sidebar to select a race, and then navigate to 
+the "Race-specific prediction
+performance" tab.
+
+The "Race-specific history" tab shows historical
+winning and median times by gender. Winning times
+are used by USU and median times are used by MED and
+XGB.
+
+It is notable that XGB performs quite well for 
+Western States, by far the most famous
+ultramarathon in the United States.
+This is due to the machine learning algorithm 
+having a significant amount of data for this race
+because of the high number of participants
+and their extensive previous experience. 
+Other iconic races appearing in the 
+test set include the Hardrock 100 Endurance Run and
+Badwater 135.

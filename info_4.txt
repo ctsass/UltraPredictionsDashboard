@@ -1,0 +1,21 @@
+MED is easy to implement and reliably generates
+more realistic finish time predictions than USU.
+My recommendation is to achieve quick incremental
+improvement by implementing MED as soon as possible.
+
+XGB requires more work and infrastructure to
+implement. It also requires ongoing
+maintenance in the form of performance monitoring
+and periodic retraining. However, the potential 
+benefits of implementing XGB are substantial. 
+It outperforms MED across all race distances, with 
+widening performance gaps at longer races and
+significantly better predictions at the 
+most famous races. These more accurate predictions 
+can be publicized to bring new attention to the 
+platform and leveraged by cross-functional teams
+for such purposes as targeted and personalized 
+advertising. My recommendation is to create a 
+study of the costs required for implementing
+XGB and to proceed with implementation when 
+resources are available.
