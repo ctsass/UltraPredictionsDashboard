@@ -11,7 +11,7 @@ benefits of implementing XGB are substantial.
 It outperforms MED across all race distances, with 
 widening performance gaps at longer races and
 significantly better predictions at the 
-most famous races. Its accurate predictions 
+most famous races. Its more accurate predictions 
 can be publicized to bring new attention to the 
 platform and leveraged by cross-functional teams
 for such purposes as targeted and personalized 
