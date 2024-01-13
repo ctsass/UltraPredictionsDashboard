@@ -196,7 +196,7 @@ else:
      y_max, name_only, dist_only, ppt_total, col_color, history_color, 
      gen_meds, gen_mins) = params(race_chosen)
     
-    tab1, tab2, tab4 = st.tabs(['Project information', 
+    tab1, tab2, tab3 = st.tabs(['Project information', 
                                       'Race-specific prediction performance', 
                                       'Race-specific history'])
     
@@ -479,7 +479,7 @@ else:
             
             st.plotly_chart(fig, use_container_width=True, theme=None)
     
-    with tab4:
+    with tab3:
         
         with st.container(border=True):
 
