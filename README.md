@@ -1,5 +1,7 @@
 # Ultramarathon Predictions Dashboard
 
+The dashboard is hosted on Streamlit. Click [here](https://ultra-predictions-dashboard.streamlit.app/) to view.
+
  [UltraSignup](https://ultrasignup.com/), 
 the leading marketplace and registration platform for
 trail and ultra races in the United States, provides a target time
