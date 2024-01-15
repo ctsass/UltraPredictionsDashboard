@@ -505,7 +505,7 @@ else:
                 fig.add_trace(go.Scatter(
                     x=mins.date, 
                     y=mins.min_time, 
-                    name=gen+' median',
+                    name=gen+' win',
                     line = dict(color=history_color[gen],
                                 dash='dot')))
             fig.update_layout(margin=dict(t=20),
