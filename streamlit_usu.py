@@ -15,6 +15,8 @@ def load_text(path):
     pattern = re.compile("\n\n")
     return pattern.split(text)
 
+table = load_text('table.txt')
+
 info_1 = load_text('info_1.txt')
 
 info_2 = load_text('info_2.txt')
@@ -196,11 +198,30 @@ else:
      y_max, name_only, dist_only, ppt_total, col_color, history_color, 
      gen_meds, gen_mins) = params(race_chosen)
     
-    tab1, tab2, tab3 = st.tabs(['Project information', 
-                                      'Race-specific prediction performance', 
-                                      'Race-specific history'])
-    
+    tab1, tab2, tab3, tab4 = st.tabs(['Project Overview',
+                                'Discussion and analysis', 
+                                'Race-specific prediction performance', 
+                                'Race-specific history'])
+
     with tab1:
+        
+        with st.container():
+            
+            st.markdown(table)
+            
+        st.text('')
+        
+        with st.container():
+            
+            with st.expander('Note'):
+                
+                st.markdown('''
+                            The mean absolute error is calculated across 
+                            all test set results. See "Discussion" tab 
+                            for further information about the test set.
+                            ''')
+    
+    with tab2:
         
         with st.container():
             
@@ -280,7 +301,7 @@ else:
                 
         with st.container():
             
-            st.subheader('Summary', 
+            st.subheader('Conclusions and Recommendations', 
                          divider='gray')
             
             for par in info_4:
@@ -300,7 +321,7 @@ else:
                 for par in data_notes:
                     st.markdown(par)
     
-    with tab2:
+    with tab3:
         
         with st.container(border=True):
     
@@ -479,7 +500,7 @@ else:
             
             st.plotly_chart(fig, use_container_width=True, theme=None)
     
-    with tab3:
+    with tab4:
         
         with st.container(border=True):
 
