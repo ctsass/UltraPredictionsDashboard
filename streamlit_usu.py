@@ -15,7 +15,7 @@ def load_text(path):
     pattern = re.compile("\n\n")
     return pattern.split(text)
 
-table = load_text('table.txt')
+table = load_text('overview.txt')
 
 info_1 = load_text('info_1.txt')
 
