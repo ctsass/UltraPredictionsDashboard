@@ -9,13 +9,19 @@ st.set_page_config(
     )
 
 @st.cache_data
+def load_text_simple(path):
+    with open(path, 'r', encoding="utf-8") as file:
+        text = file.read()
+    return text
+
+table = load_text_simple('overview.txt')
+
+@st.cache_data
 def load_text(path):
     with open(path, 'r', encoding="utf-8") as file:
         text = file.read()
     pattern = re.compile("\n\n")
     return pattern.split(text)
-
-table = load_text('overview.txt')
 
 info_1 = load_text('info_1.txt')
 
