@@ -204,7 +204,7 @@ else:
      y_max, name_only, dist_only, ppt_total, col_color, history_color, 
      gen_meds, gen_mins) = params(race_chosen)
     
-    tab1, tab2, tab3, tab4 = st.tabs(['Project Overview',
+    tab1, tab2, tab3, tab4 = st.tabs(['Overview',
                                 'Discussion and analysis', 
                                 'Race-specific prediction performance', 
                                 'Race-specific history'])
