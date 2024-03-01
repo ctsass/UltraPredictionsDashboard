@@ -1,7 +1,6 @@
 |          | USU | MED  | XGB |
 | ---      | ---             | --- | --- |
-| Status  | Current baseline | New alternative 1 | New alternative 2 |
-| Method   | Comparisons to winning times | Comparisons to median times | XGBoost machine learning regression algorithm |
+| Status (method) | Current baseline (comparisons to winning times) | New alternative 1 (comparisons to median times) | New alternative 2 (XGBoost regression) |
 | Mean absolute error (hours) | 1.08 | 0.85 | 0.76 |
 | Error reduction relative to baseline | N/A | 21% | 29% |
 | Implementation ease and timeline | N/A (currently in production) | Simple changes to stored procedures (1 week) | More complex - model deployment in Python, performance monitoring (6-12 months) |
